@@ -7,7 +7,7 @@ using RedisSample.DataDomain.Models;
 
 namespace RedisSample.DataDomain.Data
 {
-    public class Repository<T> : IRepository<T> where T: Entity
+    public abstract class Repository<T> : IRepository<T> where T: Entity
     {
         protected readonly AppDbContext _context;
         protected readonly DbSet<T> DbSet;

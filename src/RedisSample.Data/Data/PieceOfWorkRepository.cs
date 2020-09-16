@@ -6,7 +6,7 @@ using RedisSample.DataDomain.Interfaces;
 
 namespace RedisSample.DataDomain.Data
 {
-    public class EmployeerRepository: Repository<Employeer>, IRepository<Employeer>
+    public class EmployeerRepository: Repository<Employeer>, IEmployeerRepository
     {
     }
 }
