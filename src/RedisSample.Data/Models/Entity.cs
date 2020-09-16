@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace RedisSample.Data.Models
+namespace RedisSample.DataDomain.Models
 {
     public abstract class Entity
     {
