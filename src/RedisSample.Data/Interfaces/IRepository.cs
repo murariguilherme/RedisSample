@@ -8,6 +8,7 @@ namespace RedisSample.DataDomain.Interfaces
 {
     public interface IRepository<T> where T: Entity
     {
+        IUnitOfWork UnitOfWork { get; }
         Task Add(T obj);
         Task<T> Read(Guid id);
         Task Update(T obj);

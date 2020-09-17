@@ -11,23 +11,23 @@ namespace RedisSample.DataDomain.Data
     {
         protected readonly AppDbContext _context;
         protected readonly DbSet<T> DbSet;
-        public Repository()
+        public Repository(AppDbContext context)
         {
-            _context = new AppDbContext();
+            _context = context;
             DbSet = _context.Set<T>();
         }
 
+        public IUnitOfWork UnitOfWork => _context;
+
         public async Task Add(T obj)
         {
-            await DbSet.AddAsync(obj);
-            await _context.SaveChangesAsync();
+            await DbSet.AddAsync(obj);            
         }
 
         public async Task Delete(Guid id)
         {
             var entity = await this.Read(id);
-            DbSet.Remove(entity);
-            await _context.SaveChangesAsync();
+            DbSet.Remove(entity);            
         }
 
         public async Task<IEnumerable<T>> GetAll()
@@ -43,7 +43,6 @@ namespace RedisSample.DataDomain.Data
         public async Task Update(T obj)
         {
             DbSet.Update(obj);
-            await _context.SaveChangesAsync();
         }
     }
 }

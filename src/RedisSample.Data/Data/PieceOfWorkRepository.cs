@@ -8,5 +8,6 @@ namespace RedisSample.DataDomain.Data
 {
     public class EmployeerRepository: Repository<Employeer>, IEmployeerRepository
     {
+        public EmployeerRepository(AppDbContext context) : base(context) { }
     }
 }
