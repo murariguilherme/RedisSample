@@ -10,10 +10,10 @@ namespace RedisSample.DataDomain.Models
         public bool Active { get; private set; }
         public List<PieceOfWork> PiecesOfWork { get; private set; }
 
-        public Employeer(string name, bool active)
+        public Employeer(string name)
         {
             this.Name = Name;
-            this.Active = active;
+            this.Active = true;
         }
 
         public void ActivateEmployeer() 
