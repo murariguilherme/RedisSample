@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Text;
 using RedisSample.DataDomain.Models;
 using RedisSample.DataDomain.Interfaces;
+using EasyCaching.Core;
 
 namespace RedisSample.DataDomain.Data
 {
-    public class EmployeerRepository: Repository<Employeer>, IEmployeerRepository
+    public class EmployerRepository: Repository<Employer>, IEmployerRepository
     {
-        public EmployeerRepository(AppDbContext context) : base(context) { }
+        public EmployerRepository(AppDbContext context, IEasyCachingProviderFactory factory) : base(context, factory) { }
     }
 }

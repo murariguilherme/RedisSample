@@ -4,6 +4,7 @@ using System.Text;
 
 namespace RedisSample.DataDomain.Models
 {
+    [Serializable]
     public abstract class Entity
     {
         public Guid Id { get; }

@@ -7,112 +7,112 @@ namespace RedisSample.UnitTests.Tests
 {
     public class PieceOfWorkTests
     {
-        private Employeer employeer;
-        private Employeer inactiveEmployeer;
-        private PieceOfWork powWithEmployeer;
-        private PieceOfWork powWithNoEmployeer;
+        private Employer employer;
+        private Employer inactiveEmployer;
+        private PieceOfWork powWithEmployer;
+        private PieceOfWork powWithNoEmployer;
 
         public PieceOfWorkTests()
         {
-            employeer = new Employeer("Test");
-            inactiveEmployeer = new Employeer("Inactive employeer");
-            inactiveEmployeer.InactivateEmployeer();
+            employer = new Employer("Test");
+            inactiveEmployer = new Employer("Inactive employer");
+            inactiveEmployer.InactivateEmployer();
 
-            powWithEmployeer = new PieceOfWork("Do something", DateTime.Now, new Employeer("Test name"));
-            powWithNoEmployeer = new PieceOfWork("Do something", DateTime.Now);
+            powWithEmployer = new PieceOfWork("Do something", DateTime.Now, new Employer("Test name"));
+            powWithNoEmployer = new PieceOfWork("Do something", DateTime.Now);
         }
 
         [Fact]
         public void PoW_Complete_ShouldHaveStatusCompleted()
         {
-            powWithEmployeer.CompletePow();
+            powWithEmployer.CompletePow();
 
-            Assert.True(powWithEmployeer.IsCompleted());
+            Assert.True(powWithEmployer.IsCompleted());
         }
 
         [Fact]
         public void PoW_Complete_ShouldHaveThrowDomainException()
         {
-            var ex = Assert.Throws<DomainException>(() => powWithNoEmployeer.CompletePow());
-            Assert.Equal("To complete a piece of work, it should have a employeer", ex.Message);
+            var ex = Assert.Throws<DomainException>(() => powWithNoEmployer.CompletePow());
+            Assert.Equal("To complete a piece of work, it should have a employer", ex.Message);
             
-            powWithEmployeer.RemoveEmployeer();
-            ex = Assert.Throws<DomainException>(() => powWithEmployeer.CompletePow());
-            Assert.Equal("To complete a piece of work, it should have a employeer", ex.Message);
+            powWithEmployer.RemoveEmployer();
+            ex = Assert.Throws<DomainException>(() => powWithEmployer.CompletePow());
+            Assert.Equal("To complete a piece of work, it should have a employer", ex.Message);
         }
 
         [Fact]
-        public void Pow_ChangeEmployeer_ShouldReturnTrueHasEmployeer()
+        public void Pow_ChangeEmployer_ShouldReturnTrueHasEmployer()
         {
-            Assert.True(powWithEmployeer.HasEmployeer());            
+            Assert.True(powWithEmployer.HasEmployer());            
             
-            powWithEmployeer.ChangeEmployeer(employeer);
-            Assert.True(powWithEmployeer.HasEmployeer());
+            powWithEmployer.ChangeEmployer(employer);
+            Assert.True(powWithEmployer.HasEmployer());
         }
 
         [Fact]
-        public void Pow_ChangeEmployeer_ShouldReturnFalseHasEmployeer()
+        public void Pow_ChangeEmployer_ShouldReturnFalseHasEmployer()
         {
-            Assert.False(powWithNoEmployeer.HasEmployeer());
+            Assert.False(powWithNoEmployer.HasEmployer());
             
-            powWithEmployeer.RemoveEmployeer();
-            Assert.False(powWithEmployeer.HasEmployeer());
+            powWithEmployer.RemoveEmployer();
+            Assert.False(powWithEmployer.HasEmployer());
         }
 
         [Fact]
-        public void Pow_ChangeEmployeerPoWCompleted_ShouldReturnDomainException()
+        public void Pow_ChangeEmployerPoWCompleted_ShouldReturnDomainException()
         {
-            powWithEmployeer.CompletePow();            
-            var ex = Assert.Throws<DomainException>(() => powWithEmployeer.ChangeEmployeer(employeer));
+            powWithEmployer.CompletePow();            
+            var ex = Assert.Throws<DomainException>(() => powWithEmployer.ChangeEmployer(employer));
 
-            Assert.Equal("You cannot change a employeer of a completed piece of work", ex.Message);
+            Assert.Equal("You cannot change a employer of a completed piece of work", ex.Message);
         }
 
         [Fact]
-        public void Pow_ChangeToInactiveEmployeer_ShouldReturnDomainException()
+        public void Pow_ChangeToInactiveEmployer_ShouldReturnDomainException()
         {                        
-            var ex = Assert.Throws<DomainException>(() => powWithEmployeer.ChangeEmployeer(inactiveEmployeer));
+            var ex = Assert.Throws<DomainException>(() => powWithEmployer.ChangeEmployer(inactiveEmployer));
 
-            Assert.Equal("You cannot change to a inactive employeer", ex.Message);
+            Assert.Equal("You cannot change to a inactive employer", ex.Message);
         }
 
         [Fact]
         public void PoW_UndoComplete_ShouldCompletedStatusBeTrue()
         {
-            powWithEmployeer.CompletePow();
+            powWithEmployer.CompletePow();
 
-            Assert.True(powWithEmployeer.IsCompleted());
+            Assert.True(powWithEmployer.IsCompleted());
         }
 
         [Fact]
         public void PoW_UndoComplete_ShouldCompletedStatusBeFalse()
         {
-            Assert.False(powWithEmployeer.IsCompleted());
+            Assert.False(powWithEmployer.IsCompleted());
         }
 
         [Fact]
         public void PoW_UndoComplete_ShouldCompletedStatusBeFalseWhenUndoCompleted()
         {
-            powWithEmployeer.CompletePow();
-            powWithEmployeer.UndoCompletePow();
+            powWithEmployer.CompletePow();
+            powWithEmployer.UndoCompletePow();
 
-            Assert.False(powWithEmployeer.IsCompleted());
+            Assert.False(powWithEmployer.IsCompleted());
         }
 
         [Fact]
         public void PoW_ChangeName_ShouldChangeSucessfully()
         {
-            powWithEmployeer.ChangePieceOfWorkName("New name");
+            powWithEmployer.ChangePieceOfWorkName("New name");
 
-            Assert.Equal("New name", powWithEmployeer.Name);
+            Assert.Equal("New name", powWithEmployer.Name);
         }
 
         [Fact]
         public void PoW_ChangeName_ShouldThrowDomainException()
         {
-            powWithEmployeer.CompletePow();
+            powWithEmployer.CompletePow();
 
-            var ex = Assert.Throws<DomainException>(() => powWithEmployeer.ChangePieceOfWorkName("New name"));
+            var ex = Assert.Throws<DomainException>(() => powWithEmployer.ChangePieceOfWorkName("New name"));
             Assert.Equal("You cannot change a name of a completed piece of work", ex.Message);            
         }
     }

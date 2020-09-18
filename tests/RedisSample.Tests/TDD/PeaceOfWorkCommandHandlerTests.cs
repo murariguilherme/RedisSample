@@ -15,7 +15,7 @@ namespace RedisSample.Tests.TDD
     {
         private readonly AutoMocker _mocker;
         private readonly PeaceOfWorkCommandHandler _pedidoHandler;
-        private Employeer employeer;
+        private Employer employer;
         private AddPeaceOfWorkCommand validCommand;
         private AddPeaceOfWorkCommand invalidCommand;
 
@@ -23,9 +23,9 @@ namespace RedisSample.Tests.TDD
         {
             _mocker = new AutoMocker();
             _pedidoHandler = _mocker.CreateInstance<PeaceOfWorkCommandHandler>();
-            this.employeer = new Employeer("Test");
-            this.validCommand = new AddPeaceOfWorkCommand("Do something", DateTime.Now, employeer, false);
-            this.invalidCommand = new AddPeaceOfWorkCommand("", DateTime.Now, employeer, true);
+            this.employer = new Employer("Test");
+            this.validCommand = new AddPeaceOfWorkCommand("Do something", DateTime.Now, employer);
+            this.invalidCommand = new AddPeaceOfWorkCommand("", DateTime.Now, employer);
         }
 
         [Fact]

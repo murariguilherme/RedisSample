@@ -10,15 +10,15 @@ namespace RedisSample.Tests.TDD
 {
     public class AddPeaceOfWorkCommandTests
     {
-        private Employeer employeer;
+        private Employer employer;
         private AddPeaceOfWorkCommand validCommand;
         private AddPeaceOfWorkCommand invalidCommand;
 
         public AddPeaceOfWorkCommandTests()
         {
-            this.employeer = new Employeer("Test");
-            this.validCommand = new AddPeaceOfWorkCommand("Do something", DateTime.Now, employeer, false);
-            this.invalidCommand = new AddPeaceOfWorkCommand("", DateTime.Now, null, true);
+            this.employer = new Employer("Test");
+            this.validCommand = new AddPeaceOfWorkCommand("Do something", DateTime.Now, employer);
+            this.invalidCommand = new AddPeaceOfWorkCommand("", DateTime.Now, null);
         }
 
         [Fact]
@@ -35,8 +35,7 @@ namespace RedisSample.Tests.TDD
             var result = invalidCommand.IsValid();
 
             Assert.False(result);
-            Assert.Contains(AddPeaceOfWorkCommandValidation.NameEmptyErrorMsg, invalidCommand.ValidationResult.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(AddPeaceOfWorkCommandValidation.CompletedErrorMsg, invalidCommand.ValidationResult.Errors.Select(c => c.ErrorMessage));
+            Assert.Contains(AddPeaceOfWorkCommandValidation.NameEmptyErrorMsg, invalidCommand.ValidationResult.Errors.Select(c => c.ErrorMessage));            
         }
     }
 }

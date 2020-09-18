@@ -5,18 +5,20 @@ using RedisSample.DataDomain.Extensions;
 
 namespace RedisSample.DataDomain.Models
 {
+    [Serializable]
     public class PieceOfWork: Entity
     {
         public string Name { get; private set; }
         public DateTime CreatedAt { get; private set; }
-        public Guid? EmployeerId { get; private set; }
-        public Employeer? Employeer { get; private set; }
+        public Guid? EmployerId { get; private set; }
+        public Employer? Employer { get; private set; }
         public bool Completed { get; private set; }
 
-        public PieceOfWork(string name, DateTime createdAt, Employeer employeer)
+        public PieceOfWork(string name, DateTime createdAt, Employer employer)
         {
+            this.Name = name;
             this.CreatedAt = createdAt;
-            this.Employeer = employeer;
+            this.Employer = employer;
             this.Completed = false;
         }
 
@@ -33,17 +35,17 @@ namespace RedisSample.DataDomain.Models
             this.Name = name;
         }
 
-        public void ChangeEmployeer(Employeer employeer)
+        public void ChangeEmployer(Employer employer)
         {
-            if (!employeer.IsActive()) throw new DomainException("You cannot change to a inactive employeer");
-            if (this.IsCompleted()) throw new DomainException("You cannot change a employeer of a completed piece of work");
+            if (!employer.IsActive()) throw new DomainException("You cannot change to a inactive employer");
+            if (this.IsCompleted()) throw new DomainException("You cannot change a employer of a completed piece of work");
 
-            this.Employeer = employeer;            
+            this.Employer = employer;            
         }
 
-        public void RemoveEmployeer()
+        public void RemoveEmployer()
         {            
-            this.Employeer = null;
+            this.Employer = null;
         }
 
         public bool IsCompleted()
@@ -53,7 +55,7 @@ namespace RedisSample.DataDomain.Models
 
         public void CompletePow()
         {
-            if (!this.HasEmployeer()) throw new DomainException("To complete a piece of work, it should have a employeer");
+            if (!this.HasEmployer()) throw new DomainException("To complete a piece of work, it should have a employer");
             this.Completed = true;
         }
 
@@ -61,9 +63,9 @@ namespace RedisSample.DataDomain.Models
         {
             this.Completed = false;
         }
-        public bool HasEmployeer()
+        public bool HasEmployer()
         {
-            return (this.Employeer != null);
+            return (this.Employer != null);
         }
     }
 }

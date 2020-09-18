@@ -8,7 +8,7 @@ namespace RedisSample.DataDomain.Data
     public class AppDbContext: DbContext, IUnitOfWork
     {
         public AppDbContext(): base() { }
-        public DbSet<Employeer> Employeers { get; set; }
+        public DbSet<Employer> Employers { get; set; }
         public DbSet<PieceOfWork> PiecesOfWork { get; set; }
 
         public async Task<bool> Commit()

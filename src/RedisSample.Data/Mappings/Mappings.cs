@@ -7,9 +7,9 @@ using System.Text;
 
 namespace RedisSample.DataDomain.Mappings
 {
-    public class EmployeerMapping : IEntityTypeConfiguration<Employeer>
+    public class EmployerMapping : IEntityTypeConfiguration<Employer>
     {
-        public void Configure(EntityTypeBuilder<Employeer> builder)
+        public void Configure(EntityTypeBuilder<Employer> builder)
         {
             builder.HasKey(e => e.Id);
         }
