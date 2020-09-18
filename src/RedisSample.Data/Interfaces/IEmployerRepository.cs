@@ -5,7 +5,7 @@ using RedisSample.DataDomain.Models;
 
 namespace RedisSample.DataDomain.Interfaces
 {
-    public interface IEmployerRepository : IRepository<Employer>
+    public interface IEmployeeRepository : IRepository<Employee>
     {
     }
 }

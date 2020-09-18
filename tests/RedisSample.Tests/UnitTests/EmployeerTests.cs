@@ -4,36 +4,36 @@ using Xunit;
 
 namespace RedisSample.UnitTests.Tests
 {
-    public class EmployerTests    
+    public class EmployeeTests    
     {
-        private Employer employer;
-        private Employer inactiveEmployer;
+        private Employee employee;
+        private Employee inactiveEmployee;
 
-        public EmployerTests()
+        public EmployeeTests()
         {
-            this.employer = new Employer("Test");
-            this.inactiveEmployer = new Employer("Inactive");
-            this.inactiveEmployer.InactivateEmployer();
+            this.employee = new Employee("Test");
+            this.inactiveEmployee = new Employee("Inactive");
+            this.inactiveEmployee.InactivateEmployee();
         }
 
         [Fact]
-        public void Employer_CreateEmployer_ShouldReturnStatusActive()
+        public void Employee_CreateEmployee_ShouldReturnStatusActive()
         {
-            Assert.True(employer.IsActive());
+            Assert.True(employee.IsActive());
         }
 
         [Fact]
-        public void Employer_ChangeEmployerToInactive_ShouldReturnStatusInactive()
+        public void Employee_ChangeEmployeeToInactive_ShouldReturnStatusInactive()
         {
-            employer.InactivateEmployer();
-            Assert.False(employer.IsActive());
+            employee.InactivateEmployee();
+            Assert.False(employee.IsActive());
         }
 
         [Fact]
-        public void Employer_ChangeEmployerToActive_ShouldReturnStatusActive()
+        public void Employee_ChangeEmployeeToActive_ShouldReturnStatusActive()
         {
-            inactiveEmployer.ActivateEmployer();
-            Assert.True(employer.IsActive());
+            inactiveEmployee.ActivateEmployee();
+            Assert.True(employee.IsActive());
         }
     }
 }

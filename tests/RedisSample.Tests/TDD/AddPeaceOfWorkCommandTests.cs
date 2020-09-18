@@ -10,14 +10,14 @@ namespace RedisSample.Tests.TDD
 {
     public class AddPeaceOfWorkCommandTests
     {
-        private Employer employer;
+        private Employee employee;
         private AddPeaceOfWorkCommand validCommand;
         private AddPeaceOfWorkCommand invalidCommand;
 
         public AddPeaceOfWorkCommandTests()
         {
-            this.employer = new Employer("Test");
-            this.validCommand = new AddPeaceOfWorkCommand("Do something", DateTime.Now, employer);
+            this.employee = new Employee("Test");
+            this.validCommand = new AddPeaceOfWorkCommand("Do something", DateTime.Now, employee);
             this.invalidCommand = new AddPeaceOfWorkCommand("", DateTime.Now, null);
         }
 

@@ -5,24 +5,24 @@ using RedisSample.DataDomain.Extensions;
 namespace RedisSample.DataDomain.Models
 {
     [Serializable]
-    public class Employer: Entity
+    public class Employee: Entity
     {
         public string Name { get; private set; }
         public bool Active { get; private set; }
         public List<PieceOfWork> PiecesOfWork { get; private set; }
 
-        public Employer(string name)
+        public Employee(string name)
         {
             this.Name = Name;
             this.Active = true;
         }
 
-        public void ActivateEmployer() 
+        public void ActivateEmployee() 
         {
             this.Active = true;
         }
 
-        public void InactivateEmployer() 
+        public void InactivateEmployee() 
         {
             this.Active = false;
         }

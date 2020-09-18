@@ -7,8 +7,8 @@ using EasyCaching.Core;
 
 namespace RedisSample.DataDomain.Data
 {
-    public class EmployerRepository: Repository<Employer>, IEmployerRepository
+    public class EmployeeRepository: Repository<Employee>, IEmployeeRepository
     {
-        public EmployerRepository(AppDbContext context, IEasyCachingProviderFactory factory) : base(context, factory) { }
+        public EmployeeRepository(AppDbContext context, IEasyCachingProviderFactory factory) : base(context, factory) { }
     }
 }
