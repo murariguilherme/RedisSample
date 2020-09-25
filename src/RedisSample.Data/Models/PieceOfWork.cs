@@ -8,11 +8,11 @@ namespace RedisSample.DataDomain.Models
     [Serializable]
     public class PieceOfWork: Entity
     {
-        public string Name { get; private set; }
-        public DateTime CreatedAt { get; private set; }
-        public Guid? EmployeeId { get; private set; }
-        public Employee? Employee { get; private set; }
-        public bool Completed { get; private set; }
+        public string Name { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public Guid? EmployeeId { get; set; }
+        public Employee? Employee { get; set; }
+        public bool Completed { get; set; }
 
         public PieceOfWork(string name, DateTime createdAt, Employee employee)
         {
@@ -27,6 +27,8 @@ namespace RedisSample.DataDomain.Models
             this.CreatedAt = createdAt;            
             this.Completed = false;
         }
+
+        public PieceOfWork() { }
 
         public void ChangePieceOfWorkName(string name)
         {

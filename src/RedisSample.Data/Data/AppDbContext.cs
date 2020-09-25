@@ -24,7 +24,7 @@ namespace RedisSample.DataDomain.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
-                .UseInMemoryDatabase("RedisSample");
+                .UseSqlServer("Server=(localdb)\\mssqllocaldb; Database=RedisSample;Trusted_Connection=True;MultipleActiveResultSets=true");
         }
     }
 }

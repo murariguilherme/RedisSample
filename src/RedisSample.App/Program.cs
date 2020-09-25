@@ -7,8 +7,9 @@ using RedisSample.DataDomain.Models;
 using MediatR;
 using System.Threading.Tasks;
 using RedisSample.DataDomain.Extensions;
-using EasyCaching.Core.Configurations;
 using RedisSample.App.Queries;
+using System.Diagnostics;
+using StackExchange.Redis;
 
 namespace RedisSample.App
 {
@@ -27,9 +28,19 @@ namespace RedisSample.App
                 var command = new AddPeaceOfWorkCommand("Do something", DateTime.Now, new Employee("Test name"));
                 await SendCommand(command, _mediator);
                 
-                var powList = await powQuerie.GetList();
-                var pow = powList[0];
-                var powCache = await powQuerie.GetById(pow.Id);
+                var sw = new Stopwatch();
+                sw.Start();
+                var listWithoutCache = await powQuerie.GetListWithoutCache();
+                sw.Stop();
+                Console.WriteLine($"Time to get list from database where cache is not implemented: {sw.ElapsedMilliseconds}ms");
+
+                sw.Restart();
+                var listWithCache = await powQuerie.GetList();                
+                sw.Stop();
+                Console.WriteLine($"Time to get list from database where cache is implemented: {sw.ElapsedMilliseconds}ms");                
+
+                Console.ReadLine();
+
             }
             catch (DomainException ex)
             {
@@ -51,13 +62,11 @@ namespace RedisSample.App
             services.AddScoped<IPieceOfWorkQuerie, PieceOfWorkQuerie>();
             services.AddScoped<IRequestHandler<AddPeaceOfWorkCommand, bool>, PeaceOfWorkCommandHandler>();            
             services.AddMediatR(typeof(Program));
-            services.AddEasyCaching(options => options.UseRedis(config =>
+            services.AddStackExchangeRedisCache(action =>
             {
-                config.DBConfig.Endpoints.Add(new ServerEndPoint("localhost", 6379));
-                config.DBConfig.AllowAdmin = true;
-            },
-            "redis1"
-            ));
+                action.InstanceName = "WhatYouWantToNameIt";
+                action.Configuration = "127.0.0.1:6379";
+            });
         }
 
         private static async Task SendCommand(Command command, IMediator mediator)

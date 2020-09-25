@@ -22,9 +22,15 @@ namespace RedisSample.App.Queries
             return result;
         }
 
-        public async Task<List<PieceOfWork>> GetList()
+        public async Task<IEnumerable<PieceOfWork>> GetListWithoutCache()
         {
-            return (List<PieceOfWork>)await _repository.GetAll();
+            var result = await _repository.GetListWithoutCache();
+            return result;
+        }
+
+        public async Task<IEnumerable<PieceOfWork>> GetList()
+        {
+            return await _repository.GetAll();
         }
     }
 }

@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 namespace RedisSample.App.Queries
 {
     public interface IPieceOfWorkQuerie
-    {
+    {        
         Task<PieceOfWork> GetById(Guid id);
-        Task<List<PieceOfWork>> GetList();
+        Task<IEnumerable<PieceOfWork>> GetList();
+        Task<IEnumerable<PieceOfWork>> GetListWithoutCache();
     }
 }
